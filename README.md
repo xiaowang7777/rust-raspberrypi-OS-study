@@ -13,3 +13,6 @@ channel = "nightly-2022-10-13"
 components = ["rust-src", "llvm-tools-preview", "rustfmt"]
 targets = ["aarch64-unknown-none-softfloat"]
 ```
+```shell
+cargo install cargo-binutils rustfilt
+```
