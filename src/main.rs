@@ -9,10 +9,11 @@
 #![no_main]
 #![no_std]
 
-mod cpu;
 mod bsp;
-mod panic_wait;
 mod console;
+mod cpu;
+mod driver;
+mod panic_wait;
 mod print;
 mod synchronization;
 
