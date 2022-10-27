@@ -57,3 +57,6 @@ qemu-rust:
 
 	$(call color_header, "Launching QEMU")
 	$(DOCKER_CMD) $(EXEC_QEMU) $(QEMU_RUST_ARGS) -kernel $(KERNEL_BIN)
+
+clean:
+	rm -rf target $(KERNEL_BIN)
