@@ -50,6 +50,12 @@ impl DeviceDriverDescriptor {
     }
 }
 
+static DRIVER_MANAGER: DriverManager = DriverManager::new();
+
+pub fn driver_manager() -> &'static DriverManager {
+    &DRIVER_MANAGER
+}
+
 impl DriverManager {
     pub const fn new() -> Self {
         Self {
@@ -95,12 +101,12 @@ impl DriverManager {
         })
     }
 
-    pub fn enumerate(&self){
-        let mut i:usize = 1;
-        self.for_each_descriptor(|descriptor|{
+    pub fn enumerate(&self) {
+        let mut i: usize = 1;
+        self.for_each_descriptor(|descriptor| {
             println!("      {}. {}", i, descriptor.device_driver.compatible());
 
-            i+=1;
+            i += 1;
         })
     }
 }

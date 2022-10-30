@@ -33,8 +33,7 @@ EXEC_QEMU = $(QEMU_BINARY) -M $(QEMU_MACHINE_TYPE)
 
 DOCKER_CMD          = docker run -t --rm -v $(shell pwd):/work/tutorial -w /work/tutorial $(DOCKER_IMAGE)
 
-
-qemu:
+build:
 	RUSTFLAGS="$(RUSTFLAGS_PEDANTIC)" $(RUSTC_CMD)
 
 	$(call color_header, "Generating stripped binary")
@@ -43,18 +42,11 @@ qemu:
 	$(call color_progress_prefix, "Size")
 	$(call disk_usage_KiB, $(KERNEL_BIN))
 
+qemu: build
 	$(call color_header, "Launching QEMU")
 	$(DOCKER_CMD) $(EXEC_QEMU) $(QEMU_RELEASE_ARGS) -kernel $(KERNEL_BIN)
 
-qemu-rust:
-	RUSTFLAGS="$(RUSTFLAGS_PEDANTIC)" $(RUSTC_CMD)
-
-	$(call color_header, "Generating stripped binary")
-	$(OBJCOPY_CMD) $(KERNEL_ELF) $(KERNEL_BIN)
-	$(call color_progress_prefix, "Name")
-	$(call color_progress_prefix, "Size")
-	$(call disk_usage_KiB, $(KERNEL_BIN))
-
+qemu-rust:build
 	$(call color_header, "Launching QEMU")
 	$(DOCKER_CMD) $(EXEC_QEMU) $(QEMU_RUST_ARGS) -kernel $(KERNEL_BIN)
 

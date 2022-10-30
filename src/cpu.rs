@@ -7,3 +7,5 @@ pub use aarch_cpu::wait_forever;
 
 #[cfg(feature = "bsp-rpi-3")]
 pub use aarch_cpu::spin_for_cycles;
+
+pub use aarch_cpu::nop;

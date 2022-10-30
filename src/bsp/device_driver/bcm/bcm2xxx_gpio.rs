@@ -2,7 +2,6 @@ use tock_registers::{register_bitfields, register_structs, registers::ReadWrite}
 use tock_registers::interfaces::Writeable;
 use crate::bsp::device_driver::common::MMIODerefWrapper;
 use crate::synchronization::NullLock;
-use crate::cpu;
 use crate::driver::interface::DeviceDriver;
 use crate::synchronization::interface::Mutex;
 
@@ -65,15 +64,15 @@ register_bitfields! {
 }
 
 register_structs! {
-    #[allow(no_snake_case)]
+    #[allow(non_snake_case)]
     pub RegisterBlock {
         (0x00 => _reserved1),
-        (0x04 => GPFSEL1: ReadWrite<u32, GPFSEL1>),
+        (0x04 => GPFSEL1: ReadWrite<u32, GPFSEL1::Register>),
         (0x08 => _reserved2),
-        (0x94 => GPPUD: ReadWrite<u32, GPPUD>),
-        (0x98 => GPPUDCLK0: ReadWrite<u32, GPPUDCLK0>),
+        (0x94 => GPPUD: ReadWrite<u32, GPPUD::Register>),
+        (0x98 => GPPUDCLK0: ReadWrite<u32, GPPUDCLK0::Register>),
         (0x9c => _reserved3),
-        (0xe4 => GPIO_PUP_PDN_CNTRL_REG0: ReadWrite<u32, GPIO_PUP_PDN_CNTRL_REG0>),
+        (0xe4 => GPIO_PUP_PDN_CNTRL_REG0: ReadWrite<u32, GPIO_PUP_PDN_CNTRL_REG0::Register>),
         (0xe8 => @END),
     }
 }
@@ -84,7 +83,7 @@ struct GPIOInner {
     registers: Registers,
 }
 
-struct GPIO {
+pub struct GPIO {
     inner: NullLock<GPIOInner>,
 }
 
