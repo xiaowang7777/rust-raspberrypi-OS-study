@@ -18,7 +18,7 @@ PHDRS
 
 SECTIONS
 {
-    . = __rpi_phy_dram_start_addr;
+    . = 0x2000000;
 
     .boot_core_stack (NOLOAD): /* 定义内核栈段 */
         {
@@ -26,6 +26,7 @@ SECTIONS
             __boot_core_stack_end_exclusive = .;
         } :segment_boot_core_stack
 
+    __binary_nonzero_start = .;
     .text : /* 定义代码段 */
         {
             KEEP(*(.text._start))
@@ -37,6 +38,8 @@ SECTIONS
     .rodata : ALIGN(8) {*(.rodata*)} :segment_code
 
     .data : {*(.data*)} :segment_data
+
+    __binary_nonzero_end_exclusive = .;
 
     .bss (NOLOAD) : ALIGN(16)
         {

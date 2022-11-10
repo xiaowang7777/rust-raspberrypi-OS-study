@@ -98,7 +98,9 @@ impl DriverManager {
                     );
                 }
             }
-        })
+        });
+
+        self.enumerate();
     }
 
     pub fn enumerate(&self) {

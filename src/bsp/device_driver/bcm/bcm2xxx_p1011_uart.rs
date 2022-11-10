@@ -185,11 +185,11 @@ impl PL1011UartInner {
         }
 
         // 从DR寄存器中读出一个字符
-        let mut ret = self.registers.DR.get() as u8 as char;
+        let ret = self.registers.DR.get() as u8 as char;
 
-        if ret == '\r' {
-            ret = '\n';
-        }
+        // if ret == '\r' {
+        //     ret = '\n';
+        // }
 
         self.chars_read += 1;
 
